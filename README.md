@@ -7,7 +7,7 @@ this softwere is an application that allows you to track objects in a video file
 1. Clone the repository to your local machine using the following command:
 
 ```bash
-it clone hhttps://github.com/ikrfun/get_eyedata.git
+it clone https://github.com/ikrfun/get_eyedata.git
 ```
 
 2. Install the required packages using the following command:
