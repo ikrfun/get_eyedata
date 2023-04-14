@@ -15,10 +15,10 @@ git clone https://github.com/ikrfun/get_eyedata.git
 2. Install the required packages using the following command:
 
 ```bash
-cd get_eyedata \
-pip install pipenv \
-pipenv sync \
-pipenv shell \
+cd get_eyedata
+pip install pipenv
+pipenv sync
+pipenv shell
 ```
 
 ---
