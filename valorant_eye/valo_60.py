@@ -38,7 +38,7 @@ class FrameMaker:
             elif height==1920 and width==1080:
                 eye = frame
             else:
-                print('resize to 1920*2160')
+                #print('resize to 1920*2160')
                 frame = cv2.resize(frame,(int(1920), int(2160)))
                 _,eye = image_tools.sep(frame)
             binary_eye = image_tools.binarize_image(eye,plot=False)
