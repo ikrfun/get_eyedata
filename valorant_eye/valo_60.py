@@ -25,13 +25,21 @@ class FrameMaker:
     def get_frames(self):
         self.mov.set(cv2.CAP_PROP_POS_FRAMES, 0)
         height = int(self.mov.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        width = int(self.mov.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_count = int(self.mov.get(cv2.CAP_PROP_FRAME_COUNT))
+        print(f'input_size = {height} * {width}')
         for frame_id in tqdm(range(frame_count)):
             ret,frame = self.mov.read()
             if not ret:
                 print(f'{frame_id}フレームでエラー')
                 break
             if height == 2160:
+                _,eye = image_tools.sep(frame)
+            elif height==1920 and width==1080:
+                eye = frame
+            else:
+                print('resize to 1920*2160')
+                frame = cv2.resize(frame,(int(1920), int(2160)))
                 _,eye = image_tools.sep(frame)
             binary_eye = image_tools.binarize_image(eye,plot=False)
             coord = image_tools.find_most_ones(binary_eye,grid_size = 60, plot = False)
