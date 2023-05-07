@@ -10,38 +10,52 @@ this softwere is an application that allows you to track objects in a video file
 
 ```bash
 git clone https://github.com/ikrfun/get_eyedata.git
+cd get_eyedata
 ```
 
 2. Install the required packages using the following command:
 
 ```bash
-cd get_eyedata
-pip install pipenv
-pipenv sync
-pipenv shell
+pip install -r requirements.txt
 ```
 
 ---
 
 ## Usage
 
-To use Aeye-Tracker, run the following command in your terminal
+### Preparing Recorded Data
+
+you need video file which is recorded by OBS with original setting
+
+show details ->
+
+get OBS -> https://obsproject.com/ja/download
+
+---
+
+### When creating a dataset of actual facial images and their corresponding gaze coordinates 
+
+To use mekeing eye dataset, run the following command in your terminal
 
 ```bash
-python main.py -f <video-file-path> -o <output-file-path>
+python make_eyedataset.py -f <video-file-path> 
 ```
 
-`<video-file-path>`: The path to the video file that you want to track.
+`<video-file-path>`: The path to the video file 
+then you can find dataset on 'data' dir
 
-`<output-file-path>`: The path to the output file where you want to save the tracking data. Default value is `output.csv`.
+---
 
-## Examples
-
-Track an object in a video file and save the tracking data to a CSV file:
+###  When creating a dataset consisting of Valorant screen data and corresponding gaze information
 
 ```bash
-python main.py -f videos/sample.mp4 -o output
+python make_valodataset.py -f <video-file-path> 
 ```
+
+`<video-file-path>`: The path to the video file 
+then you can find dataset on 'data' dir
+
+---
 
 ## License
 
