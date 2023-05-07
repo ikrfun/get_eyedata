@@ -12,6 +12,9 @@ numpy = "*"
 cupy = "*"
 tqdm = "*"
 matplotlib = "*"
+dlib = "==19.24.1"
+imutils = "==0.5.4"
+pandas = "*"
 
 [dev-packages]
 
