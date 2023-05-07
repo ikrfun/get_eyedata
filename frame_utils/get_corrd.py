@@ -14,10 +14,13 @@ def cog(binary_img):
     stats = np.delete(stats, 0, 0)
     center = np.delete(center, 0, 0)
     #面積が最大のオブジェクトのラベル番号を取得
-    max_index = np.argmax(stats[:,4])
-    center_x = int(center[max_index][0])
-    center_y = int(center[max_index][1])
-
+    try:
+        max_index = np.argmax(stats[:,4])
+        center_x = int(center[max_index][0])
+        center_y = int(center[max_index][1])
+    except ValueError:
+        center_x = np.nan
+        center_y = np.nan
     return center_x, center_y
 
 def top(binary_image_now,binaru_image_1farame_ago):
