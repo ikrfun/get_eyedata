@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 you need video file which is recorded by OBS with original setting
 
-show details ->
+show details ->　https://github.com/ikrfun/get_eyedata/wiki/usage-en
 
 get OBS -> https://obsproject.com/ja/download
 
