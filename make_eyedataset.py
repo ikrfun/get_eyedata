@@ -47,7 +47,7 @@ def get_eye_coord(video_path:str) -> list:
     
     cap.release()
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'image':image})
-    save.csv(df,'eye_dataset','./data')
+    save.csv(df,'eye_dataset')
     
 import argparse
 if __name__ == '__main__':
@@ -55,4 +55,5 @@ if __name__ == '__main__':
     parser.add_argument('-f', '--file', type=str, help='video file path',required=True)
     args = parser.parse_args()
     if check(args.file):
+        
         get_eye_coord(args.file)
