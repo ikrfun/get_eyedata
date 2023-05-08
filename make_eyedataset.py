@@ -38,7 +38,7 @@ def get_eye_coord(video_path:str) -> list:
             eye_x.append(x)
             eye_y.append(y)
             frame_ids.append(frame_id)
-            image_path = save.image(real,'frame'+str(frame_id),'./images')
+            image_path = save.image(real,'frame'+str(frame_id))
             image.append(image_path)
         else:
             print(f'error occurd at frame{frame_id}')

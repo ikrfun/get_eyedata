@@ -40,7 +40,7 @@ def make_dataset(video_path:str) -> list:
             eye_y.append(y)
             rois.append(roi)
             frame_ids.append(frame_id)
-            image_path = save.image(game,'frame'+str(frame_id),'./images')
+            image_path = save.image(game,'frame'+str(frame_id))
             images.append(image_path)
         else:
             print(f'error occurd at frame{frame_id}')
