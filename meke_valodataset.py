@@ -47,7 +47,7 @@ def make_dataset(video_path:str) -> list:
             break   
     cap.release()
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois,'images':images})
-
+    save.csv(df,'dataset')
     
 
 
