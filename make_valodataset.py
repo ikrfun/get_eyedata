@@ -13,7 +13,7 @@ def check(file_path:str):
         print('FileNotFoundError')
         return False
 
-def make_dataset(video_path:str) -> list:
+def make_dataset(video_path:str,save_image = False) -> list:
     #動画の読み込み
     mov_file = os.path.normpath(video_path)
     cap = cv2.VideoCapture(mov_file)
@@ -40,8 +40,9 @@ def make_dataset(video_path:str) -> list:
             eye_y.append(y)
             rois.append(roi)
             frame_ids.append(frame_id)
-            image_path = save.image(game,'frame'+str(frame_id))
-            images.append(image_path)
+            if save_image:
+                image_path = save.image(game,'frame'+str(frame_id))
+                images.append(image_path)
         else:
             print(f'error occurd at frame{frame_id}')
             break   
