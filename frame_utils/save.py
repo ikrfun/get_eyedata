@@ -14,7 +14,6 @@ def image(image, save_name):
     os.makedirs(save_dir, exist_ok=True)
 
     save_path = os.path.join(save_dir, save_name + '.jpg')
-    print(save_path)
 
     cv2.imwrite(save_path, image, [cv2.IMWRITE_JPEG_QUALITY, 100])
     return save_path
