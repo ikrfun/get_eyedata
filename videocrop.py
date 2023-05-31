@@ -28,12 +28,13 @@ def crop_video(video_path:str, save_dir:str):
 
     for frame_id in tqdm(range(frame_count)):
         ret, frame = cap.read()
-        if ret:
+        try:
             top,bottom = sep.sep_y(frame)
             top_out.write(top)
             bottom_out.write(bottom)
-        else:
-            break
+        except:
+            print(f'frame_id:{frame_id} is error')
+            continue
     cap.release()
     top_out.release()
     bottom_out.release()
