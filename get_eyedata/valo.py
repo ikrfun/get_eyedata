@@ -1,5 +1,4 @@
-from frame_utils import cog, sep_y, binarize_image
-import save
+from .frame_utils import cog, sep_y, binarize_image
 import os 
 import cv2
 from tqdm import tqdm
@@ -55,7 +54,7 @@ def check(file_path:str):
         print('FileNotFoundError')
         return False
 
-def make_dataset(video_path:str,save_image = False):
+def make_dataset(video_path:str):
     #動画の読み込み
     mov_file = os.path.normpath(video_path)
     check(mov_file)
@@ -87,18 +86,11 @@ def make_dataset(video_path:str,save_image = False):
             eye_y.append(y)
             rois.append(roi)
             frame_ids.append(frame_id)
-            if save_image:
-                image_path = save.image(game,'frame'+str(frame_id))
-                images.append(image_path)
         else:
             print(f'error occurd at frame{frame_id}')
             break   
     cap.release()
-    
-    if save_image:
-        df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois,'images':images})
-    else:
-        df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois})
+    df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois})
     return df
 
 if __name__ == "__main__":
