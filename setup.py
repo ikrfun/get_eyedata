@@ -2,7 +2,7 @@
 # Copyright (c) 2022- TAKAHASHI Taro
 # Licence: MIT
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 DESCRIPTION = 'gat gaze data form record.'
 NAME = 'get_eyedata'
@@ -11,7 +11,7 @@ AUTHOR_EMAIL = 't.nobuto130625@gmail.com'
 URL = 'https://github.com/ikrfun/get_eyedata'
 LICENSE = 'MIT'
 DOWNLOAD_URL = URL
-VERSION = '1.1.0'
+VERSION = '1.1.4'
 PYTHON_REQUIRES = '>=3.10'
 INSTALL_REQUIRES = [
     'matplotlib>=3.7.1',
@@ -25,9 +25,7 @@ INSTALL_REQUIRES = [
     'tqdm>=4.65.0',
     'utils>=1.0.1'
 ]
-PACKAGES = [
-    'get_eyedata'
-]
+
 KEYWORDS = 'gaze game'
 CLASSIFIERS=[
     'License :: OSI Approved :: MIT License',
@@ -50,7 +48,7 @@ setup(
     maintainer_email=AUTHOR_EMAIL,
     url=URL,
     download_url=URL,
-    packages=PACKAGES,
+    packages=find_packages(),
     classifiers=CLASSIFIERS,
     license=LICENSE,
     keywords=KEYWORDS,
