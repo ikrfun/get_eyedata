@@ -26,7 +26,7 @@ skill = Area('skill',745,980,1175,1080)
 amo = Area('amo',1235,980,1400,1080)
 center = ('center',960,540,125)
 
-def roi(x, y):
+def get_roi(x, y):
     if ((x - center[1])**2 + (y - center[2])**2) <= center[3]**2:
         return center[0]
     elif left_team.top_x <= x <= left_team.bottom_x and left_team.top_y <= y <= left_team.bottom_y:
@@ -82,7 +82,7 @@ def make_dataset(video_path:str,save_image = False):
             bin_image = binarize_image(eye)
             #get center of biggest object
             x,y = cog(bin_image.astype(np.uint8))
-            roi = roi(x,y)
+            roi = get_roi(x,y)
             eye_x.append(x)
             eye_y.append(y)
             rois.append(roi)
@@ -102,5 +102,5 @@ def make_dataset(video_path:str,save_image = False):
     return df
 
 if __name__ == "__main__":
-    df = make_dataset('/test_bottom.mp4')
+    df = make_dataset('test_bottom.mp4')
     print(df)
