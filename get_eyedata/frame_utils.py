@@ -1,6 +1,12 @@
 import cv2
 import numpy as np
-from . import binarize
+
+#1と0で表現されたバイナリイメージに書き換える関数
+def binarize_image(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    binary_array = np.where(binary == 0, 0, 1)
+    return binary_array
 
 def cog(binary_img):
     '''
@@ -23,20 +29,17 @@ def cog(binary_img):
         center_y = np.nan
     return center_x, center_y
 
-def top(binary_image_now,binaru_image_1farame_ago):
+def sep_y(image,corrd:int = None):
     '''
-    進行方向の一番先頭にあるピクセルの座標
+    frameを回しているfor文の中での利用を前提とする
     '''
-    pass
-
-
-import argparse
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='get_eye_xy')
-    parser.add_argument('-f', '--file', type=str, help='image file path',required=True)
-    args = parser.parse_args()
+    if corrd:
+        # 動画を上下で半分に分割
+        top_half = image[:corrd, :]
+        bottom_half = image[corrd:, :]
+    else:
+        # 動画を上下で半分に分割
+        top_half = image[:2160 // 2, :]
+        bottom_half = image[2160 // 2:, :]
     
-    image = cv2.imread(args.file)
-    binary_image = binarize.binarize_image(image)
-    x,y = cog(binary_image)
-    print(x,y)
+    return top_half,bottom_half

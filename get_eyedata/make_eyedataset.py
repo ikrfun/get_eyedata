@@ -14,7 +14,7 @@ def check(file_path:str):
         print('FileNotFoundError')
         return False
 
-def get_eye_coord(video_path:str) -> list:
+def get_eye_coord(video_path:str):
     #動画の読み込み
     mov_file = os.path.normpath(video_path)
     cap = cv2.VideoCapture(mov_file)
@@ -47,12 +47,4 @@ def get_eye_coord(video_path:str) -> list:
     cap.release()
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'image':image})
     save.csv(df,'eye_dataset')
-    
-import argparse
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='welcome to Aeye-Tracler')
-    parser.add_argument('-f', '--file', type=str, help='video file path',required=True)
-    args = parser.parse_args()
-    if check(args.file):
-
-        get_eye_coord(args.file)
+    return df
