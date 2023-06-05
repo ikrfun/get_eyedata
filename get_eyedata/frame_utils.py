@@ -11,23 +11,27 @@ def binarize_image(image):
 def cog(binary_img):
     '''
     Center of Gravity
-    重心を座標として出力する
+    重心を座標として出力する（左下を0,0とする座標系）
     '''
-    #ラベリング処理
+    # ラベリング処理
     nlabels, labels, stats, center = cv2.connectedComponentsWithStats(binary_img)
-    #背景のオブジェクト情報の削除
+    
+    # 背景のオブジェクト情報の削除
     nlabels = nlabels - 1
     stats = np.delete(stats, 0, 0)
     center = np.delete(center, 0, 0)
-    #面積が最大のオブジェクトのラベル番号を取得
+    
+    # 面積が最大のオブジェクトのラベル番号を取得
     try:
-        max_index = np.argmax(stats[:,4])
+        max_index = np.argmax(stats[:, 4])
         center_x = int(center[max_index][0])
-        center_y = int(center[max_index][1])
+        center_y = binary_img.shape[0] - int(center[max_index][1])  # y座標を変更
     except ValueError:
         center_x = np.nan
         center_y = np.nan
+    
     return center_x, center_y
+
 
 def sep_y(image,corrd:int = None):
     '''
