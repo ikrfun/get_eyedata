@@ -32,6 +32,8 @@ from get_eyedata import valo
 
 # valo_df is pandas dataframe
 valo_df = valo.make_dataset('{video-file-path}')
+# save as csv
+valo_df.to_csv('out-csv-path')
 ```
 ---
 ## License
