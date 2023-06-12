@@ -1,6 +1,6 @@
 # Get-eyedata
 
-this library is an application that allows you to track objects in a video file and save the tracking data to a CSV file.
+this library is an application that allows you to track objects in a video file and save the tracking data to pandas dataframe 
 
 ## Installation
 ---
