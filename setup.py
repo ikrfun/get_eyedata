@@ -11,7 +11,7 @@ AUTHOR_EMAIL = 't.nobuto130625@gmail.com'
 URL = 'https://github.com/ikrfun/get_eyedata'
 LICENSE = 'MIT'
 DOWNLOAD_URL = URL
-VERSION = '1.1.5'
+VERSION = '1.2.0'
 PYTHON_REQUIRES = '>=3.10'
 INSTALL_REQUIRES = [
     'matplotlib>=3.7.1',
