@@ -54,7 +54,7 @@ def check(file_path:str):
         print('FileNotFoundError')
         return False
 
-def make_dataset(video_path:str):
+def make_dataset(video_path:str, save:bool = True):
     #動画の読み込み
     mov_file = os.path.normpath(video_path)
     check(mov_file)
@@ -91,8 +91,10 @@ def make_dataset(video_path:str):
             break   
     cap.release()
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois})
+    if save:
+        df.to_csv('eye_data.csv',index=False)
     return df
 
 if __name__ == "__main__":
-    df = make_dataset('test_bottom.mp4')
+    df = make_dataset('F:\git-repo\get_eyedata\data\test.mkv')
     print(df)
