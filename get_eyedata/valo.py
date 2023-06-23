@@ -9,20 +9,31 @@ from dataclasses import dataclass
 
 @dataclass
 class Area:
-    name:str
-    top_x:int
-    top_y:int
-    bottom_x:int
-    bottom_y:int
+    name: str
+    top_x: int
+    top_y: int
+    bottom_x: int
+    bottom_y: int
 
-minimap = Area('minimap',15,40,435,460)
-left_team = Area('left_team',440,0,870,100)
-right_team = Area('right_team',1050,0,1480,100)
-timer = Area('timer',870,0,1050,100)
-kill_log = Area('kill_log',1490,60,1920,300)
-hp = Area('hp',520,980,685,1080)
-skill = Area('skill',745,980,1175,1080)
-amo = Area('amo',1235,980,1400,1080)
+
+# minimap = Area('minimap',15,620,435,1040)
+# left_team = Area('left_team',440,0,870,100)
+# right_team = Area('right_team',1050,0,1480,100)
+# timer = Area('timer',870,0,1050,100)
+# kill_log = Area('kill_log',1490,60,1920,300)
+# hp = Area('hp',520,980,685,1080)
+# skill = Area('skill',745,980,1175,1080)
+# amo = Area('amo',1235,980,1400,1080)
+# center = ('center',960,540,125)
+
+minimap = Area('minimap',15,620,435,1040)
+left_team = Area('left_team',440,980,870,1080)
+right_team = Area('right_team',1050,980,1480,1080)
+timer = Area('timer',870,980,1050,1080)
+kill_log = Area('kill_log',1490,780,1920,1020)
+hp = Area('hp',520,0,685,100)
+skill = Area('skill',745,0,1175,100)
+amo = Area('amo',1235,0,1400,100)
 center = ('center',960,540,125)
 
 def get_roi(x, y):
