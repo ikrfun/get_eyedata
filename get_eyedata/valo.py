@@ -1,4 +1,4 @@
-from .frame_utils import cog, sep_y, binarize_image
+from .frame_utils import cog, sep_y, binarize_image, make_displayonly_video
 import os 
 import cv2
 from tqdm import tqdm
@@ -65,7 +65,7 @@ def check(file_path:str):
         print('FileNotFoundError')
         return False
 
-def make_dataset(video_path:str, save:bool = True):
+def make_dataset(video_path:str, save:bool = True, get_display:bool = True):
     #動画の読み込み
     mov_file = os.path.normpath(video_path)
     check(mov_file)
@@ -104,6 +104,8 @@ def make_dataset(video_path:str, save:bool = True):
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois})
     if save:
         df.to_csv('eye_data.csv',index=False)
+    if get_display:
+        make_displayonly_video(video_path)
     return df
 
 if __name__ == "__main__":

@@ -47,3 +47,29 @@ def sep_y(image,corrd:int = None):
         bottom_half = image[2160 // 2:, :]
     
     return top_half,bottom_half
+
+from moviepy.editor import VideoFileClip
+import os
+
+from moviepy.editor import VideoFileClip
+import os
+
+from moviepy.editor import VideoFileClip
+import os
+
+def make_displayonly_video(video_path:str, output_dir:str='displayonly_video'):
+    clip = VideoFileClip(video_path)
+    cropped_clip = clip.crop(y1=0, y2=clip.h // 2)  # cropping the upper half of the video
+    
+    os.makedirs(output_dir, exist_ok=True)  # create the directory if it doesn't exist
+    
+    output_path = os.path.join(output_dir, os.path.basename(video_path))
+    base_name, ext = os.path.splitext(output_path)
+    i = 1
+    while os.path.exists(output_path):
+        print(f"{output_path} already exists, saving as {base_name}{i}.mp4 instead.")
+        output_path = f"{base_name}{i}.mp4"
+        i += 1
+
+    cropped_clip.write_videofile(output_path, codec='libx264')
+
