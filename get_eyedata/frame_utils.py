@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+from queue import Queue
+from threading import Thread
 
 #1と0で表現されたバイナリイメージに書き換える関数
 def binarize_image(image):

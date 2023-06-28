@@ -5,6 +5,8 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 from dataclasses import dataclass
+from queue import Queue
+from threading import Thread
 
 
 @dataclass
@@ -65,6 +67,16 @@ def check(file_path:str):
         print('FileNotFoundError')
         return False
 
+#フレームの読み込みと画像処理の並列化
+def frame_reader(cap, queue):
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print('ret is False')
+            break
+        queue.put(frame)
+    queue.put(None)  # signal that all frames have been read
+
 def make_dataset(video_path:str, save:bool = True, get_display:bool = True):
     #動画の読み込み
     mov_file = os.path.normpath(video_path)
@@ -77,29 +89,28 @@ def make_dataset(video_path:str, save:bool = True, get_display:bool = True):
     eye_x = []
     eye_y = []
     rois = []
-    images = []
+    #フレームの読み込みと画像処理の並列化
+    frame_queue = Queue(maxsize=10)
+    reader_thread = Thread(target=frame_reader, args=(cap, frame_queue))
+    reader_thread.start()
     #メインループスタート
-    cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+    # cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
     for frame_id in tqdm(range(0,total_frames)):
         #フレームを取得
-        ret, frame = cap.read()
-        if ret:
-            #get binarized iamge 
-            if frame.shape[0] != 1080:
-                game,eye = sep_y(frame)
-            else:
-                eye = frame
-            bin_image = binarize_image(eye)
-            #get center of biggest object
-            x,y = cog(bin_image.astype(np.uint8))
-            roi = get_roi(x,y)
-            eye_x.append(x)
-            eye_y.append(y)
-            rois.append(roi)
-            frame_ids.append(frame_id)
+        frame = frame_queue.get()
+        #get binarized iamge 
+        if frame.shape[0] != 1080:
+            game,eye = sep_y(frame)
         else:
-            print(f'error occurd at frame{frame_id}')
-            break   
+            eye = frame
+        bin_image = binarize_image(eye)
+        #get center of biggest object
+        x,y = cog(bin_image.astype(np.uint8))
+        roi = get_roi(x,y)
+        eye_x.append(x)
+        eye_y.append(y)
+        rois.append(roi)
+        frame_ids.append(frame_id)
     cap.release()
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois})
     if save:
@@ -107,7 +118,6 @@ def make_dataset(video_path:str, save:bool = True, get_display:bool = True):
     if get_display:
         make_displayonly_video(video_path)
     return df
-
 if __name__ == "__main__":
     df = make_dataset('F:\git-repo\get_eyedata\data\test.mkv')
     print(df)
