@@ -103,6 +103,7 @@ def make_dataset(video_path:str, save:bool = True, get_display:bool = True):
     cap.release()
     df = pd.DataFrame({'frame_ids':frame_ids,'x':eye_x,'y':eye_y,'roi':rois})
     if save:
+        
         df.to_csv('eye_data.csv',index=False)
     if get_display:
         make_displayonly_video(video_path)

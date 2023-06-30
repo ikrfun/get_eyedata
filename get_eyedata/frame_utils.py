@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+from moviepy.editor import VideoFileClip
+import os
 
 #1と0で表現されたバイナリイメージに書き換える関数
 def binarize_image(image):
@@ -47,15 +49,6 @@ def sep_y(image,corrd:int = None):
         bottom_half = image[2160 // 2:, :]
     
     return top_half,bottom_half
-
-from moviepy.editor import VideoFileClip
-import os
-
-from moviepy.editor import VideoFileClip
-import os
-
-from moviepy.editor import VideoFileClip
-import os
 
 def make_displayonly_video(video_path:str, output_dir:str='displayonly_video'):
     clip = VideoFileClip(video_path)
