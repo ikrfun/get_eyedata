@@ -16,12 +16,8 @@ class Area:
     top_y: int
     bottom_x: int
     bottom_y: int
-    center_x: int = None
-    center_y: int = None
-    radius: int = None
-
+    
 areas = [
-    Area('center', 960, 540, 960, 540, 125),
     Area('hp', 50, 50, 500, 250),
     Area('chat', 50, 330, 500, 500),
     Area('ult', 880, 50, 1040, 220),
@@ -31,15 +27,14 @@ areas = [
 ]
 
 def get_roi(x, y):
-    for area in areas:
-        if area.name == 'center' and area.center_x and area.center_y and area.radius:
-            if ((x - area.center_x) ** 2 + (y - area.center_y) ** 2) <= area.radius ** 2:
+    if ((x - 960)**2 + (y - 540)**2) <= 125**2:
+        return 'center'
+    else:
+        for area in areas:
+            if area.top_x <= x <= area.bottom_x and area.top_y <= y <= area.bottom_y:
                 return area.name
-        elif area.top_x <= x <= area.bottom_x and area.top_y <= y <= area.bottom_y:
-            return area.name
-    return 'other'
-
-
+            else:
+                return 'other'
 
 def check(file_path:str):
     if os.path.exists(file_path):
