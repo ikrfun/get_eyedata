@@ -33,8 +33,7 @@ def get_roi(x, y):
         for area in areas:
             if area.top_x <= x <= area.bottom_x and area.top_y <= y <= area.bottom_y:
                 return area.name
-            else:
-                return 'other'
+    return 'other'
 
 def check(file_path:str):
     if os.path.exists(file_path):
